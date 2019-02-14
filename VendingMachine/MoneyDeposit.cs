@@ -6,18 +6,17 @@ namespace VendingMachine
 {
     public class MoneyDeposit
     {
-        public int insertedMoney { get; set; }
-        public List<int> MoneyPool { get; set; }
-
+        public int moneyDeposited;
+        bool state;
         int[] currency = new int[10] { 1000, 500, 200, 100, 50, 20, 10, 5, 2, 1 };
 
-        bool state;
-        
+        public List<int> MoneyPool { get; set; }
+
         public MoneyDeposit() { }
 
-        public MoneyDeposit(int insertedMoney)
+        public MoneyDeposit(int moneyDeposited)
         {
-            this.insertedMoney = insertedMoney;
+            this.moneyDeposited = moneyDeposited;
             bool keepAlive = true;
 
             MoneyPool = new List<int>();
@@ -26,15 +25,15 @@ namespace VendingMachine
             {
                 try
                 {
-                    Console.Clear();
-                    Console.Write("\nWelcome to the Vending Machine?\n");
-                    Console.WriteLine("\n::::::::::::::Show all product::::::::::::::\n");
-                    Program.DisplayColorLine("Inserted money: " + insertedMoney, ConsoleColor.Yellow);
 
-                    int input = Program.AskUserForNumberX("\nInsert money (1kr, 5kr, 10kr, 20kr, 50kr, 100kr, 500kr, 1000kr and -1 = Go Back): ");
+                    Program.DisplayColorLine("Total ammount: " + moneyDeposited, ConsoleColor.Yellow);
 
-                    if (input.Equals(-1))
+                    int input = Program.AskUserForNumberX(" Insert (1kr, 5kr, 10kr, 20kr, 50kr, 100kr, 500kr, 1000kr and 0 = Back to menu): ");
+
+
+                    if (input.Equals(0))
                     {
+
                         keepAlive = false;
                     }
                     else
@@ -42,7 +41,7 @@ namespace VendingMachine
                         state = ValidateMoney(input);
                         if (state.Equals(true))
                         {
-                            insertedMoney = insertedMoney + input;  // to method?
+                            moneyDeposited = moneyDeposited + input;  // to method?
                         }
                         else
                         {
@@ -57,11 +56,8 @@ namespace VendingMachine
                     Console.ReadKey();
                 }
             }
-
-            Console.Clear();
         }
 
-        // Return Money 
 
         /// <summary>
         /// Validate inserted money against valid money
@@ -80,6 +76,5 @@ namespace VendingMachine
 
             return false;
         }
-
     }
 }

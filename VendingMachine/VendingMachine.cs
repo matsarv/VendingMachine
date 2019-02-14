@@ -4,10 +4,8 @@ using System.Text;
 
 namespace VendingMachine
 {
-    class Food
+    class VendingMachine
     {
-        public string FoodName { set; get; }
-        public string Cost { set; get; }
-
+        // Maybe move data here from program?
     }
 }

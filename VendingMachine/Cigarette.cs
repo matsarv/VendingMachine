@@ -4,12 +4,10 @@ using System.Text;
 
 namespace VendingMachine
 {
-    class Snack : Product
+    class Cigarette: Product
     {
-        // Properties - Usage Eat
+        // Properties - Usage Smoke
         public int Quantity { get; set; }
-        public string Goodbye { get; set; } // Eat your "Name"
-
-
+        public string Goodbye { get; set; } // Smoke your "Name"
     }
 }

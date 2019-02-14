@@ -4,15 +4,41 @@ using System.Text;
 
 namespace VendingMachine
 {
-    class Product
+    abstract class Product
     {
-        // alla produkter i denna lista
+        // Fileds
+        static int countid = 0;
+
+        // Properties
         public string Name { get; set; }
-        List<string> Products { get; set; }
-        
+        public double Price { get; set; }
+        public int Id { get; private set; }
+
+        // Constructor
+        public Product(string Name, double Price) { }
+
         public Product()
         {
-            //Product new List<Product>();
+            Id = ++countid;
         }
+
+        // Method
+        public override string ToString()
+        {
+            return Id + ": " + Name + " - " + Price + " kr";
+        }
+
+
+        //public static string BuyProduct()
+        //{
+            
+        //    return "";
+        //}
+
+        //public static string ConsumeProduct()
+        //{
+        //    return "";
+        //}
+
     }
 }
