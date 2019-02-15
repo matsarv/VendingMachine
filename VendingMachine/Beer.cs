@@ -6,12 +6,26 @@ namespace VendingMachine
 {
     class Beer : Product
     {
-        // Properties - Usage Drink
+
+        // Field
+        readonly int size;
+        readonly string flavor;
+
+        // Properties
         public int Size { get; set; }
         public string Flavour { get; set; }
-        public string Goodbye { get; set; } // Drink your "Name"
 
+        // Constructor
+        public Beer(string name, double price, int quantity, int size) : base(name, price, quantity)
+        {
+            this.Size = size;
+        }
 
+        // Override
+        public override void ConsumeProduct()
+        {
+            Console.WriteLine("Drink your beer");
+        }
 
     }
 

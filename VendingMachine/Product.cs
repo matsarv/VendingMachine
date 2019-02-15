@@ -12,14 +12,16 @@ namespace VendingMachine
         // Properties
         public string Name { get; set; }
         public double Price { get; set; }
+        public int Quantity { get; set; }
         public int Id { get; private set; }
 
         // Constructor
-        public Product(string Name, double Price) { }
-
-        public Product()
+        public Product(string name, double price, int quantity)
         {
             Id = ++countid;
+            this.Name = name;
+            this.Price = price;
+            this.Quantity = quantity;
         }
 
         // Method
@@ -31,14 +33,12 @@ namespace VendingMachine
 
         //public static string BuyProduct()
         //{
-            
+
         //    return "";
         //}
 
-        //public static string ConsumeProduct()
-        //{
-        //    return "";
-        //}
+        public abstract void ConsumeProduct();
+        
 
     }
 }

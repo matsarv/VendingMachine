@@ -19,8 +19,10 @@ namespace VendingMachine
             this.moneyDeposited = moneyDeposited;
             bool keepAlive = true;
 
-            MoneyPool = new List<int>();
 
+            MoneyPool = new List<int>();
+            Program.DisplayColorLine("\nMONEY DEPOSIT" , ConsoleColor.Yellow);
+            Console.WriteLine("Use (1kr, 5kr, 10kr, 20kr, 50kr, 100kr, 500kr, 1000kr or 0 = Back to menu)");
             while (keepAlive)
             {
                 try
@@ -28,7 +30,7 @@ namespace VendingMachine
 
                     Program.DisplayColorLine("Total ammount: " + moneyDeposited, ConsoleColor.Yellow);
 
-                    int input = Program.AskUserForNumberX(" Insert (1kr, 5kr, 10kr, 20kr, 50kr, 100kr, 500kr, 1000kr and 0 = Back to menu): ");
+                    int input = Program.AskUserForNumberX(" Insert : ");
 
 
                     if (input.Equals(0))
@@ -45,7 +47,7 @@ namespace VendingMachine
                         }
                         else
                         {
-                            Program.DisplayColorLine("Use only valid value of money!", ConsoleColor.Red);
+                            Program.DisplayColorLine("Use only valid number for money!", ConsoleColor.Red);
                             Console.ReadKey();
                         }
                     }
@@ -58,6 +60,13 @@ namespace VendingMachine
             }
         }
 
+        //public bool GetMoneyPool()
+        //{
+        //    foreach (var item in money.MoneyPool)
+        //    {
+        //        moneyDeposited = moneyDeposited + item;
+        //    }
+        //}
 
         /// <summary>
         /// Validate inserted money against valid money
@@ -73,7 +82,7 @@ namespace VendingMachine
                     return true;
                 }
             }
-
+            
             return false;
         }
     }

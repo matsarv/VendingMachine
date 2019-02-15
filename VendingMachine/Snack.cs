@@ -6,10 +6,18 @@ namespace VendingMachine
 {
     class Snack : Product
     {
-        // Properties - Usage Eat
-        public int Quantity { get; set; }
-        public string Goodbye { get; set; } // Eat your "Name"
 
+        //Constructor
+        public Snack(string name, double price, int quantity) : base(name, price, quantity)
+        {
+
+        }
+
+        // Constructor
+        public override void ConsumeProduct()
+        {
+            Console.WriteLine("Eat your snack");
+        }
 
     }
 }

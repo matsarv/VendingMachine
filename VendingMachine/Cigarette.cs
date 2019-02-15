@@ -6,8 +6,23 @@ namespace VendingMachine
 {
     class Cigarette: Product
     {
-        // Properties - Usage Smoke
-        public int Quantity { get; set; }
-        public string Goodbye { get; set; } // Smoke your "Name"
+        // Fileds
+        readonly string flavor;
+
+        // Properties
+        public string Flavor { get; set; }
+
+        // Constructor
+        public Cigarette(string name, double price, int quantity, string flavor = "") : base(name,price,quantity)
+        {
+            this.Flavor = flavor;
+           
+        }
+
+        // Override
+        public override void ConsumeProduct()
+        {
+            Console.WriteLine("Smoke your cig");
+        }
     }
 }
