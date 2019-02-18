@@ -16,15 +16,21 @@ namespace VendingMachine
         public string Flavour { get; set; }
 
         // Constructor
-        public Beer(string name, double price, int quantity, int size) : base(name, price, quantity)
+        public Beer(string name, int price, int quantity, int size) : base(name, price, quantity)
         {
             this.Size = size;
         }
 
-        // Override
+        // Method
+        public override void BuyProduct()
+        {
+            Program.DisplayColorLine("\nYou selected a " + Name + " and the Money Deposit will be reduced by " + Price + " kr", ConsoleColor.Green);
+        }
+
+        // Method
         public override void ConsumeProduct()
         {
-            Console.WriteLine("Drink your beer");
+            Program.DisplayColorLine("\nDrink your beer", ConsoleColor.Green);
         }
 
     }

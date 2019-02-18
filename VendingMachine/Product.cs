@@ -11,12 +11,12 @@ namespace VendingMachine
 
         // Properties
         public string Name { get; set; }
-        public double Price { get; set; }
+        public int Price { get; set; }
         public int Quantity { get; set; }
         public int Id { get; private set; }
 
         // Constructor
-        public Product(string name, double price, int quantity)
+        public Product(string name, int price, int quantity)
         {
             Id = ++countid;
             this.Name = name;
@@ -27,16 +27,13 @@ namespace VendingMachine
         // Method
         public override string ToString()
         {
-            return Id + ": " + Name + " - " + Price + " kr";
+            return Id + ": " + Name + " (" + Quantity + ")  - " + Price + " kr";
         }
 
+        //Method
+        public abstract void BuyProduct();
 
-        //public static string BuyProduct()
-        //{
-
-        //    return "";
-        //}
-
+        // Method
         public abstract void ConsumeProduct();
         
 

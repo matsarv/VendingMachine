@@ -13,16 +13,22 @@ namespace VendingMachine
         public string Flavor { get; set; }
 
         // Constructor
-        public Cigarette(string name, double price, int quantity, string flavor = "") : base(name,price,quantity)
+        public Cigarette(string name, int price, int quantity, string flavor = "") : base(name,price,quantity)
         {
             this.Flavor = flavor;
            
         }
 
-        // Override
+        // Method
+        public override void BuyProduct()
+        {
+            Program.DisplayColorLine("\nYou selected a "  + Name + " and the Money Deposit will be reduced by " + Price + " kr", ConsoleColor.Green);
+        }
+
+        // Method
         public override void ConsumeProduct()
         {
-            Console.WriteLine("Smoke your cig");
+            Program.DisplayColorLine("\nSmoke your cigarette", ConsoleColor.Green);
         }
     }
 }

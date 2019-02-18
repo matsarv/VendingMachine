@@ -6,17 +6,36 @@ namespace VendingMachine
 {
     class Snack : Product
     {
+        // Fileds
+        string quantityName = "";
 
         //Constructor
-        public Snack(string name, double price, int quantity) : base(name, price, quantity)
+        public Snack(string name, int price, int quantity) : base(name, price, quantity)
         {
+            this.Name = name;
 
         }
 
-        // Constructor
+        // Method
+        public override void BuyProduct()
+        {
+            if (Quantity.Equals(1))
+            {
+                quantityName = "Single";
+            }
+            else
+            {
+                quantityName = "Double";
+            }
+
+            Program.DisplayColorLine("\nYou selected a " + quantityName + " " + Name + " and the Money Deposit will be reduced by " + Price + " kr", ConsoleColor.Green);
+
+        }
+
+        // Method
         public override void ConsumeProduct()
         {
-            Console.WriteLine("Eat your snack");
+            Program.DisplayColorLine("\nEat your snack", ConsoleColor.Green);
         }
 
     }

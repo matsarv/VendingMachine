@@ -26,7 +26,7 @@ namespace VendingMachine
                 }
                 else
                 {
-                    Program.DisplayColorLine("MONEY DEPOSIT: " + moneyDeposited, ConsoleColor.Yellow);
+                    Program.DisplayColorLine("MONEY DEPOSIT: " + moneyDeposited, ConsoleColor.Red);
                 }
 
                 Console.Write("\n" +
@@ -41,11 +41,11 @@ namespace VendingMachine
 
                 if (moneyDeposited < 1)
                 {
-                    Program.DisplayColorLine("Welcome. Please inset some money.", ConsoleColor.White);
+                    Program.DisplayColorLine("Please inset money or show the products", ConsoleColor.White);
                 }
                 else
                 {
-                    Program.DisplayColorLine("Please buy a product.", ConsoleColor.White);
+                    Program.DisplayColorLine("Please buy a product", ConsoleColor.White);
                 }
 
                 if (keyPress.Equals('i') || keyPress.Equals('f') || keyPress.Equals('s') || keyPress.Equals('b') || keyPress.Equals('c'))
@@ -65,21 +65,14 @@ namespace VendingMachine
 
                         if (moneyDeposited < 1)
                         {
-                            Program.DisplayColorLine("\nYou need to insert money before buying a product.", ConsoleColor.Red);
+                            Program.DisplayColorLine("\nYou need to insert money before buying a product", ConsoleColor.Red);
                             keyPress = char.ToLower(Console.ReadKey(true).KeyChar);
                         }
                         else
                         {
-                            // Goto  BuyProduct() ?
-                            Program.DisplayColorLine("\n" +
-                                "\n1 Check if enough money" +
-                                "\n2 Reduce money to MoneyBank (-price)" +
-                                "\n3 Buy selected prouduct" +
-                                "\n4 Display message (Eat your...)" +
-                                "\n5 Return to start" +
-                                "", ConsoleColor.Yellow);
+                            moneyDeposited = ByProduct(product, moneyDeposited);
                             keyPress = 'x';
-                            Console.ReadKey();
+                            //Console.ReadKey();
                         }
 
                         break;
@@ -90,15 +83,14 @@ namespace VendingMachine
 
                         if (moneyDeposited < 1)
                         {
-                            Program.DisplayColorLine("\nYou need to insert money before buying a product.", ConsoleColor.Red);
+                            Program.DisplayColorLine("\nYou need to insert money before buying a product", ConsoleColor.Red);
                             keyPress = char.ToLower(Console.ReadKey(true).KeyChar);
                         }
                         else
                         {
                             // Add BuyProduct() 
-                            Program.DisplayColorLine("\nPlease select a number for by product.", ConsoleColor.Yellow);
+                            moneyDeposited = ByProduct(product, moneyDeposited);
                             keyPress = 'x';
-                            Console.ReadKey();
                         }
                         break;
 
@@ -106,23 +98,19 @@ namespace VendingMachine
                         Program.DisplayColorLine("\nCIGARETTE", ConsoleColor.Yellow);
                         DisplayProducts(product, "cigarette");
 
-
                         if (moneyDeposited < 1)
                         {
-                            Program.DisplayColorLine("\nYou need to insert money before buying a product.", ConsoleColor.Red);
+                            Program.DisplayColorLine("\nYou need to insert money before buying a product", ConsoleColor.Red);
                             keyPress = char.ToLower(Console.ReadKey(true).KeyChar);
                         }
                         else
                         {
-                            // Add BuyProduct() 
-                            Program.DisplayColorLine("\nPlease select a number for by product", ConsoleColor.Yellow);
+                            moneyDeposited = ByProduct(product, moneyDeposited);
                             keyPress = 'x';
-                            Console.ReadKey();
                         }
                         break;
 
                     case 'i':
-                        // Enter money in Money Deposit
                         MoneyDeposit money = new MoneyDeposit(moneyDeposited);
 
                         foreach (var item in money.MoneyPool)
@@ -142,12 +130,63 @@ namespace VendingMachine
                         break;
 
                     default:
-                        //Program.DisplayColorLine("Wrong input", ConsoleColor.Red);
-                        //Console.ReadKey();
                         break;
                 }
-
             }
+        }
+
+
+        /// <summary>
+        /// Function to buy a product and return money left in Money Deposit
+        /// </summary>
+        static int ByProduct(List<Product> product, int moneyDeposited)
+        {
+            bool notFound = true;
+            string message = "";
+
+            Program.DisplayColorLine("\nPlease select a number for by product", ConsoleColor.Yellow);
+
+            int selected = Program.AskUserForNumberX("");
+
+            foreach (Product item in product)
+            {
+                if (item.Id == selected) // if found
+                {
+                    if (item.Price <= moneyDeposited)
+                    {
+                        moneyDeposited = moneyDeposited - item.Price;
+
+                        item.BuyProduct();
+                        item.ConsumeProduct();
+                        
+                        Program.DisplayColorLine("\nPress any key to continue...", ConsoleColor.White);
+                        notFound = false;
+                        break;
+                    }
+                    else
+                    {
+                        Program.DisplayColorLine("\nYou don't have enough money \n Please insert more money", ConsoleColor.Red);
+                        Program.DisplayColorLine("\nPress any key to continue...", ConsoleColor.White);
+                        notFound = false;
+                    }
+                }
+            }
+
+            if (notFound)
+            {
+                Program.DisplayColorLine("\nNo product with that number was found", ConsoleColor.Red);
+                Program.DisplayColorLine("\nPress any key to continue...", ConsoleColor.White);
+            }
+            //else
+            //{
+            //    Console.WriteLine("Product with Id: " + selected);
+
+            //}
+
+            
+            Console.ReadKey();
+            return moneyDeposited;
+
         }
 
         /// <summary>
@@ -182,11 +221,6 @@ namespace VendingMachine
             Console.ReadKey();
         }
 
-
-        //static void PrintMoneyPool(int money)
-        //{
-
-        //}
 
         /// <summary>
         /// Display product list dependig on type
